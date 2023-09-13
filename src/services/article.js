@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const rapidApiKey = import.meta.env.VITE_RAPID_API_ARTICLE_KEY;
 
 export const articleApi = createApi({
-  reducerPath: "articleApi",
+  reducerPath: "articleApi", //state name
   baseQuery: fetchBaseQuery({
     baseUrl: "https://article-extractor-and-summarizer.p.rapidapi.com/",
     prepareHeaders: (headers) => {
@@ -16,11 +16,13 @@ export const articleApi = createApi({
     },
   }),
   endpoints: (builder) => ({
+    // builder => baseQuery instance
     getSummary: builder.query({
+      //getQuery is func name
       query: (params) =>
         `/summarize?url=${encodeURIComponent(params.articleUrl)}&length=3`,
     }),
   }),
 });
 
-export const { useLazyGetSummaryQuery } = articleApi;
+export const { useLazyGetSummaryQuery } = articleApi; // Hook name useLazy + endpoint + Query
